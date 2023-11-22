@@ -55,12 +55,12 @@ public class JwtAuthCheckFilter extends OncePerRequestFilter {
         {
             log.info("start authentication check ==>"+ request.getRequestURL() +  "/" +  request.getRequestURI() );
 
-            final String authentication = request.getHeader(HttpHeaders.AUTHORIZATION).replace("Bearer ", "");
+            final String authentication = request.getHeader(HttpHeaders.AUTHORIZATION);
+            if(authentication != null)  authentication.replace("Bearer ", "");
 
             boolean isSuccess = true;
 
             isSuccess = JwtUtil.validateToken(authentication,secretKey);
-
 
 
             if(isSuccess) {
