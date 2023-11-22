@@ -11,6 +11,7 @@ import { useRecoilState,
 import userAtom from '../common/userAtom';
 import TopMenu from '../common/topMenu'
 import dateFormat, { masks } from "dateformat";
+import CsInputModal from "./CsInputModal";
 
 
 import { PaginationControl } from 'react-bootstrap-pagination-control';
@@ -32,6 +33,19 @@ export default function CS_list() {
   const currentUserInfo = useRecoilValue(userAtom); 
 
   const [pageNum, setPageNum] = useState(1)
+
+  const [showModal, setShowModal] = useState(false);
+  function handleShowModal(){
+    setShowModal(true);
+  } 
+
+  function handleShowModal(){
+    setShowModal(true);
+  } 
+
+  function handleCloseModal(){
+    setShowModal(false);
+  } 
 
 
 
@@ -89,7 +103,7 @@ export default function CS_list() {
                   <div className="col-auto float-right" >
                       <button type="button" className="btn btn-primary" onClick={() => search()} >검 색</button> &nbsp;
                       <button type="button" className="btn btn-secondary">리 셋</button> &nbsp; 
-                      <button type="button" className="btn btn-success" >추가</button> &nbsp;
+                      <button type="button" className="btn btn-success" onClick={() =>handleShowModal()}  >추가</button> &nbsp;
                   </div>
 
               </div>
@@ -114,7 +128,7 @@ export default function CS_list() {
             </thead>
             <tbody>
               <tr>
-                <td colspan="9">검색된 데이터가 없습니다</td>
+                <td colSpan="9">검색된 데이터가 없습니다</td>
               </tr>
             </tbody>
           </table>
@@ -124,8 +138,9 @@ export default function CS_list() {
         </div>
         </section>
 
-
-
+     </div>
+     <div className="inputModal">
+      <CsInputModal show={showModal}  onClose={handleCloseModal}/>  
      </div>
 
       <div className="row">
@@ -136,7 +151,7 @@ export default function CS_list() {
         </div>
         
         <div className="col-md-3">
-        {currentUserInfo}
+        {currentUserInfo} / {showModal}
         </div>
       </div>
        
